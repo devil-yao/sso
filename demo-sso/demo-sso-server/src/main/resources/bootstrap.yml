@@ -1,0 +1,55 @@
+server:
+  port: 8006
+spring:
+  application:
+    name: sso-server
+  datasource:
+    name: datasource
+    username: root
+    password: 123456
+    url: jdbc:mysql://192.168.99.100:3306/auth?useUnicode=true&characterEncoding=utf8
+    driverClassName: com.mysql.jdbc.Driver
+    type: org.apache.commons.dbcp2.BasicDataSource
+    dbcp2:
+      max-idle: 30
+      max-total: 300
+      test-while-idle: true
+      test-on-borrow: true
+      num-tests-per-eviction-run: 30
+      time-between-eviction-runs-millis: 600000
+
+  redis:
+    host: 192.168.99.100
+    port: 6379
+
+    jedis:
+      pool:
+        max-active: 180
+        max-idle: 30
+        max-wait: 60
+        min-idle: 10
+    timeout: 30s
+#    password:
+#security:
+#  oauth2:
+#    client:
+#      client-id: sso
+
+
+logging:
+  level:
+    root: info
+#    org.springframework.boot: debug
+#    org.springframework.cloud: debug
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8001/eureka
+    should-unregister-on-shutdown: true
+    fetch-registry: false
+  instance:
+    prefer-ip-address: true
+    appname: ${spring.application.name}
+    instance-id: ${spring.application.name}:${server.port}
+
+#      client-secret: sso

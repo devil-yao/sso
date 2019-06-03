@@ -1,0 +1,80 @@
+server:
+  port: 8003
+spring:
+  application:
+    name: demo-app
+  cloud:
+    config:
+      label: master
+      name: ${spring.application.name}
+
+      discovery:
+        enabled: true
+        service-id: demo-config
+  kafka:
+    client-id: ${spring.application.name}
+    consumer:
+      group-id: ${spring.application.name}
+    producer:
+      acks: all
+  zipkin:
+    sender:
+      type: web
+#    service:
+#      name: ${spring.application.name}
+    base-url: http://zipkin-demo
+#    discovery-client-enabled: true
+    discovery-client-enabled: true
+
+  sleuth:
+    sampler:
+      probability: 1
+  oauth2:
+    sso-server:
+      serviceId: sso-server
+
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${server.port}
+    prefer-ip-address: true
+    appname: ${spring.application.name}
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8001/eureka
+    should-unregister-on-shutdown: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - hystrix.stream
+          - hystrix
+
+logging:
+  level:
+    root: info
+    org.springframework.boot: debug
+    org.springframework.cloud: debug
+
+security:
+  oauth2:
+    client:
+      client-id: sso
+      client-secret: ""
+      access-token-uri: http://127.0.0.1:8006/oauth/token
+      user-authorization-uri: http://127.0.0.1:8006/oauth/authorize
+
+      scope:
+        - all
+    resource:
+      prefer-token-info: false
+    #      jwt:
+#        key-uri: http://127.0.0.1:8006/oauth/token_key
+#      token-info-uri:  http://127.0.0.1:8006/oauth/check_token
+
+#      loadBalanced: true
+      #      token-type: Bearer
+      user-info-uri: http://127.0.0.1:8006/user
+
+

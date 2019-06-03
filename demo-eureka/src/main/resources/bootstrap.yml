@@ -1,0 +1,22 @@
+server:
+  port: 8001
+spring:
+  application:
+    name: eureka-server
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${server.port}
+    appname: ${spring.application.name}
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://127.0.0.1:8001/eureka
+  server:
+    enable-self-preservation: true
+
+
+#logging:
+#  level:
+#    root: debug

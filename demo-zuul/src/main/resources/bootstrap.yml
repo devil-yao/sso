@@ -1,0 +1,36 @@
+server:
+  port: 8004
+spring:
+  application:
+    name: zuul-demo
+  cloud:
+    config:
+      discovery:
+        service-id: demo-config
+        enabled: true
+      name: ${spring.application.name}
+  zipkin:
+    base-url: http://zipkin-demo
+    sender:
+      type: web
+    discovery-client-enabled: true
+    locator:
+      discovery:
+        enabled: true
+  sleuth:
+    sampler:
+      probability: 1
+zuul:
+  ignored-services: "*"
+  routes:
+    app:
+      serviceId: demo-app
+      path: /app/**
+eureka:
+  client:
+    should-unregister-on-shutdown: true
+    service-url:
+      defaultZone: http://127.0.0.1:8001/eureka
+    register-with-eureka: false
+    fetch-registry: true
+

@@ -1,0 +1,45 @@
+server:
+  port: 8002
+spring:
+  application:
+    name: demo-config
+  cloud:
+    config:
+      server:
+        git:
+          default-label: master
+          uri: https://github.com/devil-yao/config.git
+          username: wayj1995@gmail.com
+          password: wayj1995
+    bus:
+      id: ${spring.application.name}
+
+  profiles:
+    active: git
+  kafka:
+    client-id: ${spring.application.name}
+    bootstrap-servers: 127.0.0.1:9092
+    consumer:
+      group-id: ${spring.application.name}
+    producer:
+      acks: all
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8001/eureka
+    fetch-registry: false
+  instance:
+    appname: ${spring.application.name}
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${server.port}
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - bus-env
+          - bus-refresh
+logging:
+  level:
+    org.springframework.boot: debug
+    org.springframework.cloud: debug
