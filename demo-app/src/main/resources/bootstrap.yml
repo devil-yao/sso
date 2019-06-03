@@ -17,18 +17,19 @@ spring:
       group-id: ${spring.application.name}
     producer:
       acks: all
-  zipkin:
-    sender:
-      type: web
-#    service:
-#      name: ${spring.application.name}
-    base-url: http://zipkin-demo
-#    discovery-client-enabled: true
-    discovery-client-enabled: true
+#   zipkin:
+#     sender:
+#       type: web
+# #    service:
+# #      name: ${spring.application.name}
+#     base-url: http://zipkin-demo
+# #    discovery-client-enabled: true
+#     discovery-client-enabled: true
 
-  sleuth:
-    sampler:
-      probability: 1
+  # sleuth:
+  #   sampler:
+  #     probability: 1
+      
   oauth2:
     sso-server:
       serviceId: sso-server

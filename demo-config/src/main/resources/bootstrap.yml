@@ -6,16 +6,14 @@ spring:
   cloud:
     config:
       server:
-        git:
-          default-label: master
-          uri: https://github.com/devil-yao/config.git
-          username: wayj1995@gmail.com
-          password: wayj1995
+        native:
+          search-locations: classpath:/META-INF
+      enabled: false
     bus:
       id: ${spring.application.name}
 
   profiles:
-    active: git
+    active: native
   kafka:
     client-id: ${spring.application.name}
     bootstrap-servers: 127.0.0.1:9092
