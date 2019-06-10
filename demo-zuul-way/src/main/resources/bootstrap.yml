@@ -33,4 +33,16 @@ eureka:
       defaultZone: http://127.0.0.1:8001/eureka
     register-with-eureka: false
     fetch-registry: true
-
+security:
+  oauth2:
+    client:
+      user-authorization-uri: http://127.0.0.1:8006/oauth/authoriz
+      access-token-uri: http://127.0.0.1:8006/oauth/access_token
+      authentication-scheme: form
+      client-id: sso
+      client-secret: sso
+    resource:
+      prefer-token-info: true
+      jwt:
+        key-uri: http://127.0.0.1:8006/oauth/token_key
+      token-info-uri: http://127.0.0.1:8006/oauth/check_token

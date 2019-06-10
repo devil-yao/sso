@@ -30,9 +30,9 @@ spring:
   #   sampler:
   #     probability: 1
       
-  oauth2:
-    sso-server:
-      serviceId: sso-server
+  # oauth2:
+  #   sso-server:
+  #     serviceId: sso-server
 
 
 eureka:
@@ -58,24 +58,20 @@ logging:
     org.springframework.boot: debug
     org.springframework.cloud: debug
 
+
+
+
 security:
-  oauth2:
-    client:
-      client-id: sso
-      client-secret: ""
-      access-token-uri: http://127.0.0.1:8006/oauth/token
-      user-authorization-uri: http://127.0.0.1:8006/oauth/authorize
-
-      scope:
-        - all
-    resource:
-      prefer-token-info: false
-    #      jwt:
-#        key-uri: http://127.0.0.1:8006/oauth/token_key
-#      token-info-uri:  http://127.0.0.1:8006/oauth/check_token
-
-#      loadBalanced: true
-      #      token-type: Bearer
-      user-info-uri: http://127.0.0.1:8006/user
-
-
+ oauth2:
+   client:
+    client-id: sso
+    clientSecret: sso
+    accessTokenUri: http://127.0.0.1:8006/oauth/access_token
+    userAuthorizationUri: http://127.0.0.1:8006/oauth/authorize
+    clientAuthenticationScheme: form
+   resource:
+     user-info-uri: http://127.0.0.1:8006/user
+     prefer-token-info: false
+    #  jwt:
+    #    key-uri: http://127.0.0.1:8006/oauth/token_key
+    #  token-info-uri: http://127.0.0.1:8006/oauth/check_token

@@ -2,12 +2,14 @@ package org.yj.demo.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
@@ -20,7 +22,9 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+@Order(Integer.MIN_VALUE)
 @Configuration
+@EnableAuthorizationServer
 public class AuthConfig implements AuthorizationServerConfigurer {
 
     @Resource
@@ -30,7 +34,8 @@ public class AuthConfig implements AuthorizationServerConfigurer {
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security.passwordEncoder(passwordEncoder())
+        security.allowFormAuthenticationForClients()
+                .passwordEncoder(passwordEncoder())
                 .realm("sso")
         .checkTokenAccess("permitAll()")
         .tokenKeyAccess("isAuthenticated()");
@@ -48,10 +53,11 @@ public class AuthConfig implements AuthorizationServerConfigurer {
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints.accessTokenConverter(accessTokenConverter())
-                .reuseRefreshTokens(true)
+                .reuseRefreshTokens(false)
                 .tokenStore(tokenStore())
         .allowedTokenEndpointRequestMethods(HttpMethod.GET,HttpMethod.POST)
         .accessTokenConverter(converter())
+        .prefix("sso_")
 //                .tokenGranter()
                 ;
     }

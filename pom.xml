@@ -11,8 +11,8 @@
         <module>demo-eureka</module>
         <module>demo-config</module>
         <module>demo-app</module>
-        <module>demo-zuul-way</module>
         <module>demo-zipkin</module>
+        <module>demo-zuul-way</module>
         <module>demo-stream-activemq</module>
         <module>demo-sso</module>
     </modules>

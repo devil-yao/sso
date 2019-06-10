@@ -2,8 +2,6 @@ package org.yj.demo.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,11 +15,9 @@ import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.preauth.RequestHeaderAuthenticationFilter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
 import org.yj.demo.login.AuthFilter;
 import org.yj.demo.login.AuthProvide;
 import org.yj.demo.login.LoginFailHandle;
@@ -29,8 +25,6 @@ import org.yj.demo.login.LoginSuccessHandle;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
-import java.util.Arrays;
-import java.util.Map;
 
 @Configuration
 @EnableWebSecurity
@@ -99,7 +93,7 @@ public class SsoSecurity extends WebSecurityConfigurerAdapter {
             successHandle.setClientDetailsService(clientDetailsService);
             filter.setAuthenticationSuccessHandler(successHandle);
             filter.setAuthenticationFailureHandler(new LoginFailHandle());
-            Map map = http.getSharedObjects();
+            // Map map = http.getSharedObjects();
             filter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
             filter.afterPropertiesSet();
 

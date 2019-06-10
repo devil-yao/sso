@@ -8,7 +8,7 @@ spring:
     username: root
     password: 123456
     url: jdbc:mysql://192.168.99.100:3306/auth?useUnicode=true&characterEncoding=utf8
-    driverClassName: com.mysql.jdbc.Driver
+    driverClassName: com.mysql.cj.jdbc.Driver
     type: org.apache.commons.dbcp2.BasicDataSource
     dbcp2:
       max-idle: 30
@@ -39,8 +39,8 @@ spring:
 logging:
   level:
     root: info
-#    org.springframework.boot: debug
-#    org.springframework.cloud: debug
+    org.springframework.boot: debug
+    org.springframework.cloud: debug
 eureka:
   client:
     service-url:
