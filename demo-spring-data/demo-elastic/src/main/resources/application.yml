@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: elastic-app
+  elasticsearch:
+    jest:
+      uris: http://192.168.99.100:9200
+server:
+  port: 8007

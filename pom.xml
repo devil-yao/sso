@@ -15,6 +15,7 @@
         <module>demo-zuul-way</module>
         <module>demo-stream-activemq</module>
         <module>demo-sso</module>
+        <module>demo-spring-data</module>
     </modules>
 
     <packaging>pom</packaging>
