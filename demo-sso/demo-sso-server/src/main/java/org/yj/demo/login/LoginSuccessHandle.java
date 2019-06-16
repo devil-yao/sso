@@ -59,7 +59,7 @@ public class LoginSuccessHandle implements AuthenticationSuccessHandler {
     }
 
     private String[] expose(String header){
-        String clientBase = header.replace("Basic_","");
+        String clientBase = header.replace("Basic","");
         String clientInfo = new String(Base64.getDecoder().decode(clientBase));
         if (!clientInfo.contains(":")){
             throw new InvalidRequestException("auth client fail");
