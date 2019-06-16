@@ -34,7 +34,7 @@ public class LoginSuccessHandle implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         String auth = request.getHeader("Authorization");
-        if (auth == null || !auth.startsWith("Basic_")){
+        if (auth == null || !auth.startsWith("Basic")){
             throw new InvalidRequestException("cannot find auth header");
         }
         String[] clientInfo = expose(auth);
@@ -68,6 +68,6 @@ public class LoginSuccessHandle implements AuthenticationSuccessHandler {
     }
 
     public static void main(String[] args) {
-        System.out.println(Base64.getEncoder().encodeToString("sso:".getBytes()));;
+        System.out.println(Base64.getEncoder().encodeToString("sso:".getBytes()));
     }
 }

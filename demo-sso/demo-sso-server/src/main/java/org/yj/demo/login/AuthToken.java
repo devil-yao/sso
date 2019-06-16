@@ -7,6 +7,8 @@ import java.util.Collection;
 
 public class AuthToken extends AbstractAuthenticationToken {
 
+    private static final long serialVersionUID = 837648964L;
+    
     private String principal;
 
     public AuthToken(String principal) {

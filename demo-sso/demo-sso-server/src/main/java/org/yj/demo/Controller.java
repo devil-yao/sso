@@ -2,11 +2,9 @@ package org.yj.demo;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,8 +36,13 @@ public class Controller {
         return SecurityContextHolder.getContext().getAuthentication();
     }
 
-    public static void main(String[] args) {
-        System.out.println(new BCryptPasswordEncoder().encode("sso"));
+    @GetMapping("/")
+    public Object index(){
+        return SecurityContextHolder.getContext().getAuthentication();
     }
+
+    // public static void main(String[] args) {
+    //     System.out.println(new BCryptPasswordEncoder().encode("sso"));
+    // }
 
 }
