@@ -8,6 +8,7 @@ import io.searchbox.client.JestResult;
 import io.searchbox.core.Search;
 import io.searchbox.core.SearchResult;
 import io.searchbox.indices.DeleteIndex;
+import io.searchbox.indices.mapping.PutMapping;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
@@ -16,14 +17,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.swing.*;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicLong;
 
 @RestController
 public class EsController {
+
+    AtomicLong atomicLong = new AtomicLong(2);
 
     @Resource
     private EsRespository esRespository;
@@ -39,7 +44,8 @@ public class EsController {
         EsEntity esEntity = new EsEntity();
         esEntity.setDesc("desc");
         esEntity.setName("name");
-        esEntity.setId(1);
+        esEntity.setId(atomicLong.getAndIncrement());
+        esEntity.setShowName("1111");
         esRespository.save(esEntity);
     }
 
@@ -66,5 +72,16 @@ public class EsController {
         Search search2 = new Search.Builder( paras).build();
         SearchResult result2 = jestClient.execute(search2);
         return Arrays.asList(result,result2);
+    }
+
+    @GetMapping("/jest/save")
+    public String save() throws IOException {
+        EsEntity esEntity = new EsEntity();
+        esEntity.setDesc("desc");
+        esEntity.setName("name");
+        esEntity.setId(atomicLong.getAndIncrement());
+        esEntity.setShowName("1111");
+        PutMapping putMapping = new PutMapping.Builder("es-entity","entity",esEntity).build();
+        return jestClient.execute(putMapping).getJsonString();
     }
 }
